@@ -5,10 +5,14 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.Test;
-import utility.ReadProperties;
 
+import junit.framework.Assert;
+import utility.ReadProperties;
+import utility.PropertiesReader;
+
+import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
+
 
 public class SeleniumDockerTest {
 
@@ -21,6 +25,19 @@ public class SeleniumDockerTest {
     public RemoteWebDriver driver;
 
     @Test
+    public void PrintMavenProperties() throws IOException {
+        PropertiesReader reader = new PropertiesReader("properties-from-pom.properties"); 
+        String junitVersion = reader.getProperty("junit.version");
+        System.out.println("This is printing maven values --junitVersion "+junitVersion);
+        String runMode = reader.getProperty("run.mode");
+        System.out.println("This is printing maven values -- runMode "+runMode);
+        
+        Assert.assertEquals("3.8.1", junitVersion);
+    }
+
+
+
+    //@Test
     public void TestJobPortal() throws MalformedURLException {
 
         System.out.println(URL);
